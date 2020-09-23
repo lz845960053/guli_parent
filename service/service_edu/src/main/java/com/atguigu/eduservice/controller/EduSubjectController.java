@@ -20,7 +20,7 @@ import java.util.List;
  * @author testjava
  * @since 2020-09-20
  */
-@Api(description="课程管理")
+@Api(description="课程分类管理")
 @RestController
 @RequestMapping("/eduservice/subject")
 @CrossOrigin

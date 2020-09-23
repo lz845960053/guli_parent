@@ -51,7 +51,6 @@ public class EduTeacherController {
         }*/
         return R.ok().data("items",list);
     }
-
     //2 逻辑删除讲师的方法
     @ApiOperation(value = "逻辑删除讲师")
     @DeleteMapping("{id}")

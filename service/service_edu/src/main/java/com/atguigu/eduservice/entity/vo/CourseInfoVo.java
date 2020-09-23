@@ -1,10 +1,11 @@
 package com.atguigu.eduservice.entity.vo;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.math.BigDecimal;
-
+@ApiModel(value = "课程基本信息", description = "编辑课程基本信息的表单对象")
 @Data
 public class CourseInfoVo {
 
