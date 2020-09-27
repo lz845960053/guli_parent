@@ -1,6 +1,7 @@
 package com.atguigu.eduservice.controller;
 
 
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @since 2020-09-22
  */
 @RestController
-@RequestMapping("/eduservice/edu-chapter")
+@RequestMapping("/eduservice/chapter")
+@CrossOrigin
 public class EduChapterController {
 
 }
