@@ -46,7 +46,7 @@ public class EduCourseController {
         return R.ok().data("courseInfo",courseInfoVo);
     }
     //修改课程信息
-    @PostMapping("updateCourseInfo")
+    @PutMapping("updateCourseInfo")
     public R updateCourseInfo(@RequestBody CourseInfoVo courseInfoVo){
         int record =  eduCourseService.updateCourseInfo(courseInfoVo);
         if(record!=1){

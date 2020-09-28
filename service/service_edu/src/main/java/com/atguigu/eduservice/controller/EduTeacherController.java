@@ -149,7 +149,7 @@ public class EduTeacherController {
     }
 
     //根据讲师id修改讲师
-    @PostMapping("updateTeacher")
+    @PutMapping("updateTeacher")
     public R updateTeacher(@RequestBody EduTeacher teacher){
         boolean flag = teacherService.updateById(teacher);
         if(flag){

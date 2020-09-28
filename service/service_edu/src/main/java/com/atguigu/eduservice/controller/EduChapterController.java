@@ -45,10 +45,22 @@ public class EduChapterController {
         return R.ok().data("chapter",eduChapter);
     }
     //更新章节
-    @PostMapping("updateChapter")
+    //@PostMapping("updateChapter")
+    @PutMapping("updateChapter")
     public R updateChapter(@RequestBody EduChapter eduChapter){
         boolean update = chapterService.updateById(eduChapter);
         return R.ok();
+    }
+
+    //删除章节
+    @DeleteMapping("{chapterId}")
+    public R deleteChapter(@PathVariable("chapterId")String chapterId){
+        Boolean flag = chapterService.deleteChapter(chapterId);
+        if(flag){
+            return R.ok();
+        }else{
+            return R.error();
+        }
     }
 }
 

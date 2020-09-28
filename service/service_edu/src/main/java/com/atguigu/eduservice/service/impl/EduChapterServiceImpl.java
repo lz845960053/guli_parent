@@ -8,6 +8,7 @@ import com.atguigu.eduservice.entity.vo.CourseInfoVo;
 import com.atguigu.eduservice.mapper.EduChapterMapper;
 import com.atguigu.eduservice.service.EduChapterService;
 import com.atguigu.eduservice.service.EduVideoService;
+import com.atguigu.servicebase.exceptionhandler.GuliException;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +40,7 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
         //获取所有小节
         QueryWrapper<EduVideo> eduVideoQueryWrapper = new QueryWrapper<>();
         eduVideoQueryWrapper.eq("course_id",courseId);
+        eduVideoQueryWrapper.orderByAsc("sort","gmt_modified");
         List<EduVideo> eduVideoList = eduVideoService.list(eduVideoQueryWrapper);
         //数据封装
         List<ChapterVo> finalList = new ArrayList<>();
@@ -58,5 +60,21 @@ public class EduChapterServiceImpl extends ServiceImpl<EduChapterMapper, EduChap
             finalList.add(chapterVo);
         }
         return finalList;
+    }
+
+    @Override
+    public Boolean deleteChapter(String chapterId) {
+        //根据章节Id查询小节
+        QueryWrapper<EduVideo> eduVideoQueryWrapper = new QueryWrapper<>();
+        eduVideoQueryWrapper.eq("chapter_id",chapterId);
+        int count = eduVideoService.count(eduVideoQueryWrapper);
+        //判断
+        if(count>0){
+            throw new GuliException(20001,"不能删除");
+        }else{
+            //删除章节
+            int result = baseMapper.deleteById(chapterId);
+            return result>0;
+        }
     }
 }
