@@ -5,14 +5,15 @@ import com.atguigu.eduservice.entity.EduCourseDescription;
 import com.atguigu.eduservice.entity.vo.CourseInfoVo;
 import com.atguigu.eduservice.entity.vo.CoursePublishVo;
 import com.atguigu.eduservice.mapper.EduCourseMapper;
+import com.atguigu.eduservice.service.EduChapterService;
 import com.atguigu.eduservice.service.EduCourseDescriptionService;
 import com.atguigu.eduservice.service.EduCourseService;
+import com.atguigu.eduservice.service.EduVideoService;
 import com.atguigu.servicebase.exceptionhandler.GuliException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 /**
  * <p>
@@ -27,6 +28,13 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduCourseDescriptionService eduCourseDescriptionService;
+
+    @Autowired
+    private EduVideoService videoService;
+
+    @Autowired
+    private EduChapterService chapterService;
+
     @Override
     public String saveCourseInfo(CourseInfoVo courseInfoVo) {
         EduCourse eduCourse = new EduCourse();
@@ -82,9 +90,36 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     //根据课程id查询课程确认信息
     @Override
-    public CoursePublishVo publishCourseInfo(String id) {
+    public CoursePublishVo publishCourseInfo(String courseId) {
         //调用mapper
-        CoursePublishVo publishCourseInfo  = baseMapper.getPublishCourseInfo(id);
+        CoursePublishVo publishCourseInfo  = baseMapper.getPublishCourseInfo(courseId);
         return publishCourseInfo;
+    }
+    @Override
+    public boolean publishCourse(String courseId) {
+        EduCourse eduCourse = new EduCourse();
+        eduCourse.setId(courseId);
+        eduCourse.setStatus(EduCourse.COURSE_NORMAL);
+        int count = baseMapper.updateById(eduCourse);
+        return  count > 0 ;
+
+    }
+
+    @Override
+    public void deleteCourseById(String courseId) {
+        //删除video中的数据
+        boolean flag;
+        videoService.removeByCourseId(courseId);
+        //删除章节中的数据
+        chapterService.removeByCourseId(courseId);
+
+        //删除课程描述中的数据
+        eduCourseDescriptionService.removeById(courseId);
+
+        //删除课程中的数据
+        int result = baseMapper.deleteById(courseId);
+        if(result == 0){
+            throw new GuliException(20001,"删除失败");
+        }
     }
 }
