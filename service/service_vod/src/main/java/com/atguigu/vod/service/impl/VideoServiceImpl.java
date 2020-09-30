@@ -11,11 +11,13 @@ import com.atguigu.servicebase.exceptionhandler.GuliException;
 import com.atguigu.vod.service.VideoService;
 import com.atguigu.vod.util.AliyunVodSDKUtils;
 import com.atguigu.vod.util.ConstantPropertiesUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -53,8 +55,6 @@ public class VideoServiceImpl implements VideoService {
 
     @Override
     public void removeVideo(String videoId) {
-
-
         try {
             DefaultAcsClient client = AliyunVodSDKUtils.initVodClient(
                     ConstantPropertiesUtil.ACCESS_KEY_ID,
@@ -69,5 +69,26 @@ public class VideoServiceImpl implements VideoService {
             throw new GuliException(20001, "视频删除失败");
         }
 
+    }
+
+    @Override
+    public void removeMoreAlyVideo(List<String> videoIdList) {
+
+        try {
+            DefaultAcsClient client = AliyunVodSDKUtils.initVodClient(
+                    ConstantPropertiesUtil.ACCESS_KEY_ID,
+                    ConstantPropertiesUtil.ACCESS_KEY_SECRET);
+
+            DeleteVideoRequest request = new DeleteVideoRequest();
+            //videoIdList值转换成 1,2,3
+            String videoIds = StringUtils.join(videoIdList.toArray(), ",");
+            //向request设置视频id
+            request.setVideoIds(videoIds);
+            //调用初始化对象的方法实现删除
+            client.getAcsResponse(request);
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw new GuliException(20001,"删除视频失败");
+        }
     }
 }

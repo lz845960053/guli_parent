@@ -109,6 +109,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
     public void deleteCourseById(String courseId) {
         //删除video中的数据
         boolean flag;
+        //删除小节的数据
         videoService.removeByCourseId(courseId);
         //删除章节中的数据
         chapterService.removeByCourseId(courseId);

@@ -2,9 +2,11 @@ package com.atguigu.eduservice.controller;
 
 
 import com.atguigu.commonutils.R;
+import com.atguigu.eduservice.client.VodClient;
 import com.atguigu.eduservice.entity.EduVideo;
 import com.atguigu.eduservice.service.EduVideoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 public class EduVideoController {
     @Autowired
     private EduVideoService videoService;
+    @Autowired
+    private VodClient vodClient;
 
     //添加小节
     @PostMapping("addVideo")
@@ -31,6 +35,14 @@ public class EduVideoController {
     //删除小节
     @DeleteMapping("{id}")
     public R deleteVideo(@PathVariable("id")String id){
+        //先删除视频
+        EduVideo eduVideo = videoService.getById(id);
+        String videoSourceId = eduVideo.getVideoSourceId();
+        if(!StringUtils.isEmpty(videoSourceId)){
+            R r = vodClient.removeVideo(videoSourceId);
+            // R result = vodClient.removeAlyVideo(videoSourceId);
+        }
+        //在删除表中数据
         videoService.removeById(id);
         return R.ok();
     }
