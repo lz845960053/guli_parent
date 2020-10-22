@@ -1,21 +1,18 @@
-package com.atguigu.eduservice;
+package com.atguigu.msmservice;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = DataSourceAutoConfiguration.class)
 @ComponentScan(basePackages = {"com.atguigu"})
-@MapperScan("com.atguigu.eduservice.mapper")
-@EnableDiscoveryClient
-@EnableFeignClients
-public class EduApplication {
+public class MsmApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EduApplication.class, args);
+        SpringApplication.run(MsmApplication.class, args);
     }
 }

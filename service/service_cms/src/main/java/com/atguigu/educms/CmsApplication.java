@@ -1,6 +1,5 @@
-package com.atguigu.eduservice;
+package com.atguigu.educms;
 
-import com.mysql.cj.x.protobuf.MysqlxDatatypes;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,12 +9,12 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.atguigu"})
-@MapperScan("com.atguigu.eduservice.mapper")
+@MapperScan(value = "com.atguigu.educms.mapper")
 @EnableDiscoveryClient
 @EnableFeignClients
-public class EduApplication {
+public class CmsApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(EduApplication.class, args);
+        SpringApplication.run(CmsApplication.class, args);
     }
 }
