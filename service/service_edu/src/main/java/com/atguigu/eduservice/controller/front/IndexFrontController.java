@@ -6,12 +6,10 @@ import com.atguigu.eduservice.entity.EduTeacher;
 import com.atguigu.eduservice.service.EduCourseService;
 import com.atguigu.eduservice.service.EduTeacherService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,5 +40,14 @@ public class IndexFrontController {
         List<EduTeacher> teacherList = teacherService.list(wrapperTeacher);
 
         return R.ok().data("eduList",eduList).data("teacherList",teacherList);
+    }
+    //获取讲师列表，分页查询
+    @GetMapping("queryTeacherListPage/{page}/{limit}")
+    public R queryTeacherListPage(@PathVariable("page")long page
+            ,@PathVariable("limit")long limit){
+        //返回前端页面的封装
+        Page<EduTeacher> teacherpage = new Page<>(page,limit);
+        //返回的数据有 TODO
+        return R.ok();
     }
 }
