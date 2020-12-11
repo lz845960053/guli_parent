@@ -27,7 +27,7 @@ public class UcenterMemberController {
     private UcenterMemberService memberService;
 
     //登录接口
-        @PostMapping("login")
+    @PostMapping("login")
     public R loginUser(@RequestBody UcenterMember member){
         //调用service 返回token
         String token = memberService.login(member);

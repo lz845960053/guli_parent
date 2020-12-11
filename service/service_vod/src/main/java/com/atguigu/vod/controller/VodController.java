@@ -62,6 +62,4 @@ public class VodController {
         videoService.removeMoreAlyVideo(videoIdList);
         return R.ok();
     }
-
-
 }

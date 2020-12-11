@@ -12,12 +12,15 @@ import com.atguigu.vod.service.VideoService;
 import com.atguigu.vod.util.AliyunVodSDKUtils;
 import com.atguigu.vod.util.ConstantPropertiesUtil;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
+import java.util.concurrent.Future;
 
 @Service
 public class VideoServiceImpl implements VideoService {
@@ -90,5 +93,28 @@ public class VideoServiceImpl implements VideoService {
             e.printStackTrace();
             throw new GuliException(20001,"删除视频失败");
         }
+    }
+
+    /**
+    * 异步调用
+     * 没有返回值
+    * */
+    @Override
+    @Async
+    public void excutVoidTask(int i) throws InterruptedException {
+        //Thread.sleep(2000);
+        System.out.println("异步执行任务第[" + i + "] 个");
+    }
+    /**
+    * 异步调用
+     * 有返回值
+    * */
+    @Override
+    @Async
+    public Future<String> excuteValueTask(int i) throws InterruptedException {
+        Thread.sleep(1000);
+        Future<String> future = new AsyncResult<String>("success is " + i);
+        System.out.println("异步执行任务第[" + i + "] 个");
+        return future;
     }
 }
