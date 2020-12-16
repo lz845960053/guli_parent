@@ -2,6 +2,7 @@ package com.atguigu.educenter.mapper;
 
 import com.atguigu.educenter.entity.UcenterMember;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.data.repository.query.Param;
 
 /**
  * <p>
@@ -13,4 +14,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UcenterMemberMapper extends BaseMapper<UcenterMember> {
 
+    /**
+     * @params day
+     * @desc 统计某一天的注册人数
+     * */
+    Integer selectRegisterCount(@Param("day") String day);
 }

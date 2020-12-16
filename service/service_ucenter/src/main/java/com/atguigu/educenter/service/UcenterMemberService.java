@@ -17,4 +17,10 @@ public interface UcenterMemberService extends IService<UcenterMember> {
     String login(UcenterMember member);
     //注册的接口
     int registerUser(RegisterVo registerVo);
+
+    /**
+     * @params day
+     * @desc 统计某一天的注册人数
+     * */
+    Integer registerCountByDay(String day);
 }
