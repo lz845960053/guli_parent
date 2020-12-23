@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Component
-@FeignClient(value = "service-ucenter") //注解用于指定从哪个服务中调用功能 ，名称与被调用的服务名保持一致
+@FeignClient("service-ucenter")
 public interface UcenterClient {
 
-    @GetMapping("/educenter/member/registerCount/{day}")
+    @GetMapping(value = "/educenter/member/registerCount/{day}")
     public R registerCount(@PathVariable("day") String day);
 }

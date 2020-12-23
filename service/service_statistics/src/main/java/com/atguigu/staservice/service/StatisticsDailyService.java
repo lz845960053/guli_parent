@@ -8,10 +8,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 网站统计日数据 服务类
  * </p>
  *
- * @author testjava
- * @since 2020-12-11
+ * @author lishibo
+ * @since 2020-12-16
  */
 public interface StatisticsDailyService extends IService<StatisticsDaily> {
 
-    void registerCount(String day);
 }

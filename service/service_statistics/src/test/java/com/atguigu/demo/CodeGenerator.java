@@ -1,4 +1,4 @@
-package demo;
+package com.atguigu.demo;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 import com.baomidou.mybatisplus.generator.config.rules.DateType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import org.junit.Test;
+
 
 /**
  * @author
@@ -30,7 +31,7 @@ public class CodeGenerator {
         //D:\JavaCode\IdeaProjects\guli-parent\service\service_edu
         gc.setOutputDir("D:\\JavaCode\\IdeaProjects\\guli\\guli_parent\\service\\service_statistics" + "/src/main/java");
 
-        gc.setAuthor("testjava");
+        gc.setAuthor("lishibo");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
 

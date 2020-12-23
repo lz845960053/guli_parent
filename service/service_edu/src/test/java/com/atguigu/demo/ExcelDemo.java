@@ -50,4 +50,15 @@ public class ExcelDemo {
         // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
         EasyExcel.read(fileName, ReadData.class,new ExcelListener()).sheet().doRead();
     }
+
+    @Test
+    public void test4(){
+        String str = "dzx_979_1";
+        String[] s = str.split("\\_");
+        System.out.println(s[s.length-1]);
+        for (String s1 : s) {
+            System.out.println(s1);
+        }
+
+    }
 }
